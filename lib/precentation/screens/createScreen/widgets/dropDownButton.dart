@@ -3,12 +3,13 @@ import 'package:jobtracker/utils/styleManager.dart';
 
 Widget dropDownMenu({required List<PopupMenuEntry> items,required String title}){
   return Container(
+    padding: EdgeInsets.symmetric(horizontal: 40),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(40),
       color: AppColors.secondaryColor
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title,style: TextStyles.normalPri,),
         PopupMenuButton(
