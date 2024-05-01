@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobtracker/precentation/screens/createScreen/bloc/create_bloc.dart';
+import 'package:jobtracker/precentation/screens/createScreen/bloc/localVariables.dart';
+import 'package:jobtracker/precentation/screens/createScreen/functions.dart';
+import 'package:jobtracker/precentation/screens/createScreen/widgets/dateSelector.dart';
+import 'package:jobtracker/precentation/screens/createScreen/widgets/textInputFields.dart';
+import 'package:jobtracker/precentation/screens/createScreen/widgets/timeSelector.dart';
+import 'package:jobtracker/utils/popUpMenuItems.dart';
 import 'package:jobtracker/precentation/screens/createScreen/widgets/createInputFields.dart';
 import 'package:jobtracker/precentation/screens/createScreen/widgets/dropDownButton.dart';
 import 'package:jobtracker/precentation/widgets/button.dart';
@@ -7,11 +15,6 @@ import 'package:jobtracker/utils/screenSizeHelper.dart';
 import 'package:jobtracker/utils/styleManager.dart';
 
 class CreateScreenUI extends StatelessWidget {
-  final List<PopupMenuEntry> items = [
-    PopupMenuItem(value: 'one', child: Text('one')),
-    PopupMenuItem(value: 'two', child: Text('two')),
-    PopupMenuItem(value: 'three', child: Text('three'))
-  ];
   CreateScreenUI({super.key});
 
   @override
@@ -25,28 +28,85 @@ class CreateScreenUI extends StatelessWidget {
           height: screenHeight(context),
           child: ListView(
             children: [
-              Text('Create',style: TextStyles.bold.copyWith(fontSize: FontSizes.mainHeading),),
-              createInputField(heading: 'Company Name', height: 50),
-              createInputField(heading: 'Job Title', height: 50),
-              createInputField(heading: 'Job Description', height: 300),
-              createInputField(heading: 'Contact Name', height: 50),
-              createInputField(heading: 'Contact Email', height: 50),
-              createInputField(heading: 'Contact Phone', height: 50),
-              createInputField(heading: 'Notes/Comments', height: 300),
-              const SizedBox(height: 15,),
-              dropDownMenu(items: items,title: 'Job Type'),
-              const SizedBox(height: 15,),
-              dropDownMenu(items: items,title: 'Application Status'),
-              const SizedBox(height: 15,),
-              button(text: 'Application Method'),
-              const SizedBox(height: 15,),
-              button(text: 'Applied Date'),
-              const SizedBox(height: 15,),
-              button(text: 'Interview Date'),
+              Text(
+                'Create',
+                style:
+                    TextStyles.bold.copyWith(fontSize: FontSizes.mainHeading),
+              ),
+              textInputFields(),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<CreateBloc, CreateState>(
+                builder: (context, state) {
+                  return dropDownMenu(
+                      context: context,
+                      items: jobTypes,
+                      title: jobType == null ? 'Job Type' : jobType!,
+                      isJobType: true);
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<CreateBloc, CreateState>(
+                builder: (context, state) {
+                  return dropDownMenu(
+                      context: context,
+                      items: applicationStatuses,
+                      title: applicationStatus == null
+                          ? 'Application Status'
+                          : applicationStatus!,
+                      isJobType: false);
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<CreateBloc, CreateState>(
+                builder: (context, state) {
+                  return button(
+                      text: appliedDate == null
+                          ? 'Applied Date'
+                          : CreateScreenFunctions.dateFormator(appliedDate!),
+                      function: () {
+                        dateSelector(context: context, isApplied: true);
+                      });
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<CreateBloc, CreateState>(
+                builder: (context, state) {
+                  return button(text: appliedTime == null ? 'Applied Time': CreateScreenFunctions.timeFormator(appliedTime!),function: (){timeSelector(context: context,isApplied: true);});
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              BlocBuilder<CreateBloc, CreateState>(
+                builder: (context, state) {
+                  return applicationStatus != null &&
+                          applicationStatus == 'Interview Scheduled'
+                      ? Column(children: [
+                          button(text: interviewDate == null? 'Interview Date': CreateScreenFunctions.dateFormator(interviewDate!),function: (){dateSelector(context: context, isApplied: false);}),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          button(text: interviewTime == null ? 'Interview Time' : CreateScreenFunctions.timeFormator(interviewTime!),function: (){timeSelector(context: context, isApplied: false);})
+                        ])
+                      : Container(height: 0,);
+                },
+              ),
               divider(),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               button(text: 'Save'),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ part of 'jobTrackModel.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class jobTrackModelAdapter extends TypeAdapter<JobTrackModel> {
+class JobTrackModelAdapter extends TypeAdapter<JobTrackModel> {
   @override
   final int typeId = 1;
 
@@ -21,12 +21,14 @@ class jobTrackModelAdapter extends TypeAdapter<JobTrackModel> {
       jobTitle: fields[1] as String,
       jobDescription: fields[2] as String,
       applicationDate: fields[3] as DateTime,
+      applicationTime: fields[14] as DateTime,
       applicationStatus: fields[4] as String,
       contactName: fields[5] as String?,
       contactEmail: fields[6] as String?,
       contactPhone: fields[7] as String?,
       applicationMethod: fields[8] as String,
       interviewDate: fields[9] as DateTime?,
+      interviewTime: fields[13] as DateTime?,
       notes: fields[10] as String?,
       type: fields[11] as String,
       isStared: fields[12] as bool,
@@ -36,7 +38,7 @@ class jobTrackModelAdapter extends TypeAdapter<JobTrackModel> {
   @override
   void write(BinaryWriter writer, JobTrackModel obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.companyName)
       ..writeByte(1)
@@ -62,7 +64,11 @@ class jobTrackModelAdapter extends TypeAdapter<JobTrackModel> {
       ..writeByte(11)
       ..write(obj.type)
       ..writeByte(12)
-      ..write(obj.isStared);
+      ..write(obj.isStared)
+      ..writeByte(13)
+      ..write(obj.interviewTime)
+      ..writeByte(14)
+      ..write(obj.applicationTime);
   }
 
   @override
@@ -71,7 +77,7 @@ class jobTrackModelAdapter extends TypeAdapter<JobTrackModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is jobTrackModelAdapter &&
+      other is JobTrackModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

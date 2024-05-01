@@ -6,6 +6,7 @@ void putData(
     required String jobTitle,
     required String jobDescription,
     required DateTime applicationDate,
+    required DateTime applicationTime,
     required String applicationStatus,
     required String applicationMethod,
     required String type,
@@ -13,6 +14,7 @@ void putData(
     String? contactEmail,
     String? contactPhone,
     DateTime? interviewDate,
+    DateTime? interviewTime,
     String? notes,
     bool? isStared}) {
   jobTrackerBox.put(
@@ -22,6 +24,7 @@ void putData(
           jobTitle: jobTitle,
           jobDescription: jobDescription,
           applicationDate: applicationDate,
+          applicationTime: applicationTime,
           applicationStatus: applicationStatus,
           applicationMethod: applicationMethod,
           type: type,
@@ -29,6 +32,7 @@ void putData(
           contactEmail: contactEmail,
           contactPhone: contactPhone,
           interviewDate: interviewDate,
+          interviewTime: interviewTime,
           notes: notes,
           isStared: isStared ?? false
           ));
@@ -53,6 +57,7 @@ void updateDataAt(
     required String jobTitle,
     required String jobDescription,
     required DateTime applicationDate,
+    required DateTime applicationTime,
     required String applicationStatus,
     required String applicationMethod,
     required String type,
@@ -60,6 +65,7 @@ void updateDataAt(
     String? contactEmail,
     String? contactPhone,
     DateTime? interviewDate,
+    DateTime? interviewTime,
     String? notes,
     bool? isStared}){
   JobTrackModel hold = jobTrackerBox.getAt(index); 
@@ -67,6 +73,7 @@ void updateDataAt(
   hold.jobTitle = jobTitle;
   hold.jobDescription = jobDescription;
   hold.applicationDate = applicationDate;
+  hold.applicationTime = applicationTime;
   hold.applicationStatus = applicationStatus;
   hold.applicationMethod = applicationMethod;
   hold.type = type;
@@ -74,6 +81,7 @@ void updateDataAt(
   hold.contactEmail = contactEmail;
   hold.contactPhone = contactPhone;
   hold.interviewDate = interviewDate;
+  hold.interviewTime = interviewTime;
   hold.notes = notes;
   jobTrackerBox.putAt(index, hold);
 }

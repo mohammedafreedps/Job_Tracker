@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jobtracker/utils/styleManager.dart';
 
-Widget inputTextFiled({required String lableText, required double height}) {
+Widget inputTextFiled({required String lableText, required double height, required TextEditingController controller}) {
   return SizedBox(
     height: height,
     child: TextField(
+      controller: controller,
       expands: true,
       maxLines: null,
       cursorColor: AppColors.primaryColor,

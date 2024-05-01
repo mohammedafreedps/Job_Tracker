@@ -44,17 +44,25 @@ class JobTrackModel {
   @HiveField(12)
   bool isStared;
 
+  @HiveField(13)
+  DateTime? interviewTime;
+
+  @HiveField(14)
+  DateTime applicationTime;
+
   JobTrackModel(
       {required this.companyName,
       required this.jobTitle,
       required this.jobDescription,
       required this.applicationDate,
+      required this.applicationTime,
       required this.applicationStatus,
       this.contactName,
       this.contactEmail,
       this.contactPhone,
       required this.applicationMethod,
       this.interviewDate,
+      this.interviewTime,
       this.notes,
       required this.type,
       this.isStared = false});
