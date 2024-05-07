@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jobtracker/data/model/jobTrackModel.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/appliedDateTime.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/appliedOn.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/contacts.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/interviewDateTime.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/jobDescription.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/nameTitleStatus.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/notes.dart';
 import 'package:jobtracker/precentation/widgets/divider.dart';
-import 'package:jobtracker/precentation/widgets/statusIndicator.dart';
 import 'package:jobtracker/utils/styleManager.dart';
 
 class JobDetailScreenUI extends StatelessWidget {
@@ -22,213 +28,20 @@ class JobDetailScreenUI extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                      width: 230,
-                      child: Text(
-                        modelList[index].companyName,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyles.bold.copyWith(fontSize: 30),
-                      )),
-                  statusIndicator(
-                      context: context,
-                      status: modelList[index].applicationStatus),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Flutter developer',
-                    style: TextStyles.normal.copyWith(fontSize: 18),
-                  ),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.edit,
-                        color: AppColors.secondaryColor,
-                      )),
-                ],
-              ),
+              nameTitleStatus(context: context, model: modelList, index: index),
               divider(),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Applied Date:',
-                        style: TextStyles.normal,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'May 22 2024',
-                        style: TextStyles.normal.copyWith(),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                        'Applied Time:',
-                        style: TextStyles.normal,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        '12:30 AM',
-                        style: TextStyles.normal.copyWith(),
-                      ),
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.edit,
-                            color: AppColors.secondaryColor,
-                          ))
-                    ],
-                  )
-                ],
-              ),
+              appliedDateTime(),
               divider(),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Interview Date:',
-                        style: TextStyles.normal,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'May 22 2024',
-                        style: TextStyles.normal.copyWith(),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                        'Interview Time:',
-                        style: TextStyles.normal,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        '12:30 AM',
-                        style: TextStyles.normal.copyWith(),
-                      ),
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.edit,
-                            color: AppColors.secondaryColor,
-                          ))
-                    ],
-                  )
-                ],
-              ),
+              interviewDateTime(),
               divider(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Job Description',
-                        style: TextStyles.normal.copyWith(fontSize: 15),
-                      )
-                    ],
-                  ),
-                  Text('Descriptions ',style: TextStyles.normal.copyWith(fontSize: 14),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: AppColors.secondaryColor,))
-                    ],
-                  )
-                ],
-              ),
+              jobDescription(),
               divider(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Contact',style: TextStyles.normal.copyWith(fontSize: 15),)
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('Name: ',style: TextStyles.normal.copyWith(fontSize: 14),),Text('Nano',style: TextStyles.normal.copyWith(fontSize: 14),)
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('Email: ',style: TextStyles.normal.copyWith(fontSize: 14),),Text('example@gmail.com',style: TextStyles.normal.copyWith(fontSize: 14),)
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('Phone: ',style: TextStyles.normal.copyWith(fontSize: 14),),Text('1234567890',style: TextStyles.normal.copyWith(fontSize: 14),)
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: AppColors.secondaryColor,))
-                    ],
-                  ),
-                ],
-              ),
+              contacts(),
               divider(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Notes',style: TextStyles.normal.copyWith(fontSize: 15),)
-                    ],
-                  ),
-                  Text('Notss',style: TextStyles.normal.copyWith(fontSize: 14),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: AppColors.secondaryColor,))],)
-                ],
-              ),
+              notes(),
               divider(),
               SizedBox(height: 30,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text('-Linked In-',style: TextStyles.normal.copyWith(fontSize: 10),)],
-              ),
+              appliedOn(),
               SizedBox(height: 30,),
             ],
           ),
