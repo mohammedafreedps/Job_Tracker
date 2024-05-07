@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:jobtracker/data/model/jobTrackModel.dart';
 import 'package:jobtracker/precentation/screens/createScreen/bloc/create_bloc.dart';
+import 'package:jobtracker/precentation/screens/homeScreen/bloc/applied_bloc.dart';
 import 'package:jobtracker/precentation/screens/initialScreen/initialScreenUI.dart';
+import 'package:jobtracker/precentation/screens/scheduledScreen/bloc/scheduled_bloc.dart';
+import 'package:jobtracker/precentation/screens/staredScreen/bloc/stared_bloc.dart';
 import 'package:jobtracker/utils/boxes.dart';
 
 void main() async{
@@ -26,7 +29,10 @@ class JobTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CreateBloc>(create: (context)=> CreateBloc())
+        BlocProvider<CreateBloc>(create: (context)=> CreateBloc()),
+        BlocProvider<AppliedBloc>(create: (context) => AppliedBloc()..add(SearchDataFromLocalDataBase(query: ''))),
+        BlocProvider<StaredBloc>(create: (context)=> StaredBloc()..add(LoadAllStaredDataEvent(query: ''))),
+        BlocProvider<ScheduledBloc>(create: (context)=> ScheduledBloc()..add(LoadScheduledListEvent(query: '')))
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

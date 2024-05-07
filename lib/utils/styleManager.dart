@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color primaryColor = Color.fromARGB(255, 34, 40, 49);
   static const Color secondaryColor = Color.fromARGB(255, 250, 246, 240);
+  static const Color notSelectColor = Color.fromARGB(255, 140, 140, 140);
+  static const Color selectColor = Color.fromARGB(255, 39, 55, 77);
 }
 
 class TextStyles{

@@ -19,7 +19,7 @@ class ScheduledScreenUI extends StatelessWidget {
             children: [
               Text('Scheduled',style: TextStyles.bold.copyWith(fontSize: FontSizes.mainHeading),),
               SizedBox(height: 15,),
-              cusTextField(lableText: 'Search'),
+              cusTextField(context: context , lableText: 'Search',pageName:  'Scheduled'),
               SizedBox(height: 10,),
               divider(),
               SizedBox(height: 10),
