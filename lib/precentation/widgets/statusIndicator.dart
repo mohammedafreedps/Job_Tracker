@@ -18,7 +18,7 @@ Widget statusIndicator({required BuildContext context, required String status}){
     padding: EdgeInsets.all(5),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(30),
-      color: status == 'Applied' ? _statusColor : Colors.grey,
+      color: _statusColor,
     ),
     child: Text(status , style: TextStyles.normalPri.copyWith(fontSize: 9),),
   );

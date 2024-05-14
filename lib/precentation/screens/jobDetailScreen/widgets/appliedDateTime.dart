@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobtracker/data/model/jobTrackModel.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/bloc/job_detail_bloc.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/bloc/localVariable.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/editScreen.dart';
+import 'package:jobtracker/precentation/widgets/nothing.dart';
+import 'package:jobtracker/utils/formators.dart';
+import 'package:jobtracker/utils/pageNavigators.dart';
 import 'package:jobtracker/utils/styleManager.dart';
 
-Widget appliedDateTime() {
+Widget appliedDateTime({required List<JobTrackModel> model, required int index}) {
   return Column(
     children: [
       Column(
@@ -16,7 +24,7 @@ Widget appliedDateTime() {
                 width: 15,
               ),
               Text(
-                'May 22 2024',
+                Formattors.dateFormator(model[index].applicationDate),
                 style: TextStyles.normal.copyWith(),
               )
             ],
@@ -38,17 +46,26 @@ Widget appliedDateTime() {
                     width: 15,
                   ),
                   Text(
-                    '12:30 AM',
+                    Formattors.timeFormator(model[index].applicationTime),
                     style: TextStyles.normal.copyWith(),
                   ),
                 ],
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.edit,
-                    color: AppColors.secondaryColor,
-                  ))
+              BlocBuilder<JobDetailBloc, JobDetailState>(
+                builder: (context, state) {
+                  if(state is IsEditableState){
+                    return enableEdit ? IconButton(
+                      onPressed: () {
+                        navigatePush(context: context, page: EditScreen(editPart: 'AppliedDateTime', modelList: model, index: index));
+                      },
+                      icon: Icon(
+                        Icons.edit,
+                        color: AppColors.secondaryColor,
+                      )): nothing();
+                  }
+                  return nothing();
+                },
+              )
             ],
           )
         ],

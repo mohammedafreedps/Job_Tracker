@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobtracker/data/model/jobTrackModel.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/bloc/edit_bloc.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/appbarWithButton.dart';
 import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/appliedDateTime.dart';
 import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/appliedOn.dart';
 import 'package:jobtracker/precentation/screens/jobDetailScreen/widgets/contacts.dart';
@@ -19,31 +22,37 @@ class JobDetailScreenUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
-        iconTheme: IconThemeData(color: AppColors.secondaryColor),
-      ),
+      appBar: appBarWithButton(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              nameTitleStatus(context: context, model: modelList, index: index),
-              divider(),
-              appliedDateTime(),
-              divider(),
-              interviewDateTime(),
-              divider(),
-              jobDescription(),
-              divider(),
-              contacts(),
-              divider(),
-              notes(),
-              divider(),
-              SizedBox(height: 30,),
-              appliedOn(),
-              SizedBox(height: 30,),
-            ],
+          child: BlocBuilder<EditBloc, EditState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  nameTitleStatus(
+                      context: context, model: modelList, index: index),
+                  divider(),
+                  appliedDateTime(model: modelList,index: index),
+                  divider(),
+                  interviewDateTime(),
+                  divider(),
+                  jobDescription(),
+                  divider(),
+                  contacts(),
+                  divider(),
+                  notes(),
+                  divider(),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  appliedOn(),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

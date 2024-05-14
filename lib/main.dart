@@ -7,6 +7,8 @@ import 'package:jobtracker/data/model/jobTrackModel.dart';
 import 'package:jobtracker/precentation/screens/createScreen/bloc/create_bloc.dart';
 import 'package:jobtracker/precentation/screens/homeScreen/bloc/applied_bloc.dart';
 import 'package:jobtracker/precentation/screens/initialScreen/initialScreenUI.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/bloc/edit_bloc.dart';
+import 'package:jobtracker/precentation/screens/jobDetailScreen/bloc/job_detail_bloc.dart';
 import 'package:jobtracker/precentation/screens/scheduledScreen/bloc/scheduled_bloc.dart';
 import 'package:jobtracker/precentation/screens/staredScreen/bloc/stared_bloc.dart';
 import 'package:jobtracker/utils/boxes.dart';
@@ -32,7 +34,9 @@ class JobTracker extends StatelessWidget {
         BlocProvider<CreateBloc>(create: (context)=> CreateBloc()),
         BlocProvider<AppliedBloc>(create: (context) => AppliedBloc()..add(SearchDataFromLocalDataBase(query: ''))),
         BlocProvider<StaredBloc>(create: (context)=> StaredBloc()..add(LoadAllStaredDataEvent(query: ''))),
-        BlocProvider<ScheduledBloc>(create: (context)=> ScheduledBloc()..add(LoadScheduledListEvent(query: '')))
+        BlocProvider<ScheduledBloc>(create: (context)=> ScheduledBloc()..add(LoadScheduledListEvent(query: ''))),
+        BlocProvider<JobDetailBloc>(create: (context)=> JobDetailBloc()),
+        BlocProvider<EditBloc>(create: (context)=> EditBloc())
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
